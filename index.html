@@ -9,14 +9,29 @@
             height: 100%;
             margin: 0;
             font-family: 'Roboto', sans-serif;
+            position: relative; /* Added for positioning */
         }
 
         body {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #00aaff, #00ffb3);
+            background: linear-gradient(135deg, #00aaff, #00ffb3); /* Gradient background */
             color: #333;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        body::after {
+            content: "";
+            background: url('FF8DDkpWYAAJc3Y.png') no-repeat center center fixed; /* Overlay background image */
+            background-size: cover; /* Ensure it covers the whole screen */
+            opacity: 0.2; /* 10% opacity */
+            position: absolute; /* Positioning for the overlay */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1; /* Behind content but above gradient */
         }
 
         .container {
@@ -28,6 +43,8 @@
             width: 100%;
             text-align: center;
             margin-top: 40px; /* Add spacing from the top */
+            position: relative; /* Position in front of background layers */
+            z-index: 1; /* Ensure it stays in front */
         }
 
         .logo {
