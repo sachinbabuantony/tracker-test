@@ -60,11 +60,12 @@
             margin-top: -10px;
         }
 
-        .search-bar, .airline-bar {
+        .input-bar {
             margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 10px;
         }
 
         input[type="text"], select {
@@ -96,8 +97,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             height: 36px;
-            width: 100px;
-            margin-left: 10px;
+            width: 120px;
+            margin-top: 10px;
         }
 
         button:hover {
@@ -127,16 +128,14 @@
     <script>
         function updateIFrame() {
             const registrationValue = document.getElementById('search-input').value;
-            const iframe = document.getElementById('radarbox-iframe');
-            if (registrationValue) {
-                iframe.src = `https://www.radarbox.com/?widget=1&z=7&lat=41.46422&lng=-71.12708&hideFlightCard=true&registration=${registrationValue}`;
-            }
-        }
-
-        function updateAirlineIFrame() {
             const airlineValue = document.getElementById('airline-select').value;
             const iframe = document.getElementById('radarbox-iframe');
-            if (airlineValue) {
+
+            if (registrationValue) {
+                // Update iframe with the registration value
+                iframe.src = `https://www.radarbox.com/?widget=1&z=7&lat=41.46422&lng=-71.12708&hideFlightCard=true&registration=${registrationValue}`;
+            } else if (airlineValue) {
+                // Update iframe with the airline value
                 iframe.src = `https://www.radarbox.com/?widget=1&z=7&lat=51.1953&lng=-0.7868&hideAirportCard=true&showLabels=true&showAirlineLogo=true&airline=${airlineValue}`;
             }
         }
@@ -148,14 +147,9 @@
         <img src="ae-logo1.png" alt="Airline Economics Logo" class="logo">
         <h1>Real-Time Flight Tracker</h1>
 
-        <!-- Search Bar for Flight Registration -->
-        <div class="search-bar">
+        <!-- Input Bar for Registration and Airline Selection -->
+        <div class="input-bar">
             <input type="text" id="search-input" placeholder="Enter Registration...">
-            <button onclick="updateIFrame()">Search</button>
-        </div>
-
-        <!-- Dropdown for Selecting Airline -->
-        <div class="airline-bar">
             <select id="airline-select">
                 <option value="">Select an Airline...</option>
                 <option value="AAL">American Airlines</option>
@@ -169,8 +163,10 @@
                 <option value="THA">Thai Airways</option>
                 <option value="JAL">Japan Airlines</option>
             </select>
-            <button onclick="updateAirlineIFrame()">Search</button>
         </div>
+
+        <!-- Single Search Button -->
+        <button onclick="updateIFrame()">Search</button>
 
         <!-- Centered iFrame -->
         <iframe id="radarbox-iframe" src="https://www.radarbox.com/?widget=1&z=7&lat=41.46422&lng=-71.12708&hideFlightCard=true&registration=N873NN"></iframe>
