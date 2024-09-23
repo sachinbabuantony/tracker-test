@@ -113,6 +113,7 @@
             width: 100%;
             height: 60vh;
             max-width: 1000px;
+            margin-top: 20px; /* Added margin to give space between button and map */
         }
 
         @media (max-width: 768px) {
@@ -151,13 +152,24 @@
         <div class="input-bar">
             <input type="text" id="search-input" placeholder="Enter Registration...">
             <select id="airline-select">
+                <option value="">Select an Airline...</option>
+                <option value="AAL">American Airlines</option>
+                <option value="BAW">British Airways</option>
+                <option value="DAL">Delta Airlines</option>
+                <option value="UAL">United Airlines</option>
+                <option value="AFR">Air France</option>
+                <option value="DLH">Lufthansa</option>
+                <option value="QFA">Qantas</option>
+                <option value="SIA">Singapore Airlines</option>
+                <option value="THA">Thai Airways</option>
+                <option value="JAL">Japan Airlines</option>
                 <option value="KLM">KLM Royal Dutch Airlines</option>
                 <option value="ANA">All Nippon Airways</option>
                 <option value="EVA">EVA Air</option>
-                <option value="CXR">Cathay Pacific</option>
+                <option value="CPA">Cathay Pacific Airways</option>
                 <option value="QTR">Qatar Airways</option>
                 <option value="ETD">Etihad Airways</option>
-                <option value="EMR">Emirates</option>
+                <option value="UAE">Emirates</option>
                 <option value="VIR">Virgin Atlantic</option>
                 <option value="IBE">Iberia</option>
                 <option value="SWA">Southwest Airlines</option>
@@ -165,14 +177,13 @@
                 <option value="EZY">easyJet</option>
                 <option value="AIC">Air India</option>
                 <option value="ASA">Alaska Airlines</option>
-                <option value="VAI">Volaris</option>
+                <option value="VIV">VivaAerobus</option>
                 <option value="AZA">Alitalia</option>
                 <option value="TAP">TAP Air Portugal</option>
                 <option value="THY">Turkish Airlines</option>
                 <option value="KAC">Kuwait Airways</option>
-                <option value="PAA">Philippine Airlines</option>
+                <option value="PAL">Philippine Airlines</option>
                 <option value="VJC">VietJet Air</option>
-                
             </select>
         </div>
 
