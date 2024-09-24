@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airline Economics</title>
     <style>
         html, body {
@@ -66,6 +65,7 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         input[type="text"], select {
@@ -113,7 +113,7 @@
             width: 100%;
             height: 60vh;
             max-width: 1000px;
-            margin-top: 20px; /* Added margin to give space between button and map */
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
@@ -127,18 +127,66 @@
         }
     </style>
     <script>
-        function updateIFrame() {
-            const registrationValue = document.getElementById('search-input').value;
-            const airlineValue = document.getElementById('airline-select').value;
-            const iframe = document.getElementById('radarbox-iframe');
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureSelect = document.getElementById('feature-select');
+            const inputContainer = document.getElementById('input-container');
+            const searchInput = document.getElementById('search-input');
+            const airlineSelect = document.getElementById('airline-select');
 
-            if (registrationValue) {
-                // Update iframe with the registration value
-                iframe.src = `https://www.radarbox.com/?widget=1&z=7&lat=41.46422&lng=-71.12708&hideFlightCard=true&registration=${registrationValue}`;
-            } else if (airlineValue) {
-                // Update iframe with the airline value
-                iframe.src = `https://www.radarbox.com/?widget=1&z=7&lat=51.1953&lng=-0.7868&hideAirportCard=true&showLabels=true&showAirlineLogo=true&airline=${airlineValue}`;
+            // Initially hide the second input until a feature is selected
+            searchInput.style.display = 'none';
+            airlineSelect.style.display = 'none';
+
+            featureSelect.addEventListener('change', function() {
+                const feature = this.value;
+
+                // Hide both inputs initially
+                searchInput.style.display = 'none';
+                airlineSelect.style.display = 'none';
+
+                if (feature === "registration" || feature === "model") {
+                    searchInput.style.display = 'inline-block';
+                    searchInput.placeholder = feature === "registration" ? "Enter Registration..." : "Enter Model...";
+                } else if (feature === "airline") {
+                    airlineSelect.style.display = 'inline-block';
+                }
+            });
+        });
+
+        function updateIFrame() {
+            const feature = document.getElementById('feature-select').value;
+            const iframe = document.getElementById('radarbox-iframe');
+            let src = "https://www.radarbox.com/?widget=1&z=7&showLabels=true&showRegistration=true&showAirlineLogo=true&showRoute=true&showAircraftModel=true&class=A,B,G,C,M&showSquawk=7500,7600,7700";
+
+            if (feature === "registration") {
+                const registrationValue = document.getElementById('search-input').value.trim();
+                if (registrationValue) {
+                    src += `&registration=${encodeURIComponent(registrationValue)}`;
+                } else {
+                    alert("Please enter a registration number.");
+                    return;
+                }
+            } else if (feature === "model") {
+                const modelValue = document.getElementById('search-input').value.trim();
+                if (modelValue) {
+                    src += `&aircraft=${encodeURIComponent(modelValue)}`;
+                } else {
+                    alert("Please enter an aircraft model.");
+                    return;
+                }
+            } else if (feature === "airline") {
+                const airlineValue = document.getElementById('airline-select').value;
+                if (airlineValue) {
+                    src += `&airline=${encodeURIComponent(airlineValue)}`;
+                } else {
+                    alert("Please select an airline.");
+                    return;
+                }
+            } else {
+                alert("Please select a feature to search by.");
+                return;
             }
+            iframe.src = src;
         }
     </script>
 </head>
@@ -148,9 +196,18 @@
         <img src="ae-logo1.png" alt="Airline Economics Logo" class="logo">
         <h1>Real-Time Flight Tracker</h1>
 
-        <!-- Input Bar for Registration and Airline Selection -->
+        <!-- Input Bar for Feature Selection and corresponding input -->
         <div class="input-bar">
-            <input type="text" id="search-input" placeholder="Enter Registration...">
+            <!-- Master Selection Box with 'Search by' as default -->
+            <select id="feature-select">
+                <option value="">Search by</option>
+                <option value="registration">Registration</option>
+                <option value="model">Model</option>
+                <option value="airline">Airline</option>
+            </select>
+
+            <!-- Second Input Box (Text Input or Airline Dropdown) -->
+            <input type="text" id="search-input" placeholder="Enter Value...">
             <select id="airline-select">
                 <option value="">Select an Airline...</option>
                 <option value="AAL">American Airlines</option>
@@ -191,7 +248,7 @@
         <button onclick="updateIFrame()">Search</button>
 
         <!-- Centered iFrame -->
-        <iframe id="radarbox-iframe" src="https://www.radarbox.com/?widget=1&z=7&lat=41.46422&lng=-71.12708&hideFlightCard=true&registration=N873NN"></iframe>
+        <iframe id="radarbox-iframe" src="https://www.radarbox.com/?widget=1&z=7&showLabels=true&showRegistration=true&showAirlineLogo=true&showRoute=true&showAircraftModel=true&class=A,B,G,C,M&showSquawk=7500,7600,7700"></iframe>
     </div>
 </body>
 </html>
