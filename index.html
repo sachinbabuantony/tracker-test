@@ -155,7 +155,7 @@
         function updateIFrame() {
             const feature = document.getElementById('feature-select').value;
             const iframe = document.getElementById('radarbox-iframe');
-            let src = "https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753";
+            let src = "https://www.radarbox.com/?widget=1&z=6&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showRegistration=true&showSquawk=7500,7600,7700&airport=EGLL";
 
             if (feature === "registration") {
                 const registrationValue = document.getElementById('search-input').value.trim();
@@ -248,7 +248,7 @@
         <button onclick="updateIFrame()">Search</button>
 
         <!-- Centered iFrame -->
-        <iframe id="radarbox-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width=650 height=500 src="https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753"></iframe>
+        <iframe id="radarbox-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="650" height="500" src="https://www.radarbox.com/?widget=1&z=6&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showRegistration=true&showSquawk=7500,7600,7700&airport=EGLL"></iframe>
     </div>
 </body>
 </html>
