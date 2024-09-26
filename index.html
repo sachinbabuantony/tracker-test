@@ -130,10 +130,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             const featureSelect = document.getElementById('feature-select');
             const searchInput = document.getElementById('search-input');
+            const modelSelect = document.getElementById('model-select');
             const airlineSelect = document.getElementById('airline-select');
 
             // Initially hide the second input until a feature is selected
             searchInput.style.display = 'none';
+            modelSelect.style.display = 'none';
             airlineSelect.style.display = 'none';
 
             featureSelect.addEventListener('change', function() {
@@ -141,11 +143,14 @@
 
                 // Hide both inputs initially
                 searchInput.style.display = 'none';
+                modelSelect.style.display = 'none';
                 airlineSelect.style.display = 'none';
 
-                if (feature === "registration" || feature === "model") {
+                if (feature === "registration") {
                     searchInput.style.display = 'inline-block';
-                    searchInput.placeholder = feature === "registration" ? "Enter Registration..." : "Enter Model...";
+                    searchInput.placeholder = "Enter Registration...";
+                } else if (feature === "model") {
+                    modelSelect.style.display = 'inline-block';
                 } else if (feature === "airline") {
                     airlineSelect.style.display = 'inline-block';
                 }
@@ -166,11 +171,11 @@
                     return;
                 }
             } else if (feature === "model") {
-                const modelValue = document.getElementById('search-input').value.trim();
+                const modelValue = document.getElementById('model-select').value;
                 if (modelValue) {
                     src += `&aircraft=${encodeURIComponent(modelValue)}`;
                 } else {
-                    alert("Please enter an aircraft model.");
+                    alert("Please select an aircraft model.");
                     return;
                 }
             } else if (feature === "airline") {
@@ -206,8 +211,39 @@
                 <option value="airline">Airline</option>
             </select>
 
-            <!-- Second Input Box (Text Input or Airline Dropdown) -->
+            <!-- Text Input for Registration -->
             <input type="text" id="search-input" placeholder="Enter Value...">
+
+            <!-- Model Dropdown for Aircraft Models -->
+            <select id="model-select">
+                <option value="">Select an Aircraft Model...</option>
+                <option value="A320">A320</option>
+                <option value="B738">B738</option>
+                <option value="A321">A321</option>
+                <option value="A319">A319</option>
+                <option value="B77W">B77W</option>
+                <option value="B737">B737</option>
+                <option value="A333">A333</option>
+                <option value="A332">A332</option>
+                <option value="B739">B739</option>
+                <option value="DH8D">DH8D</option>
+                <option value="E190">E190</option>
+                <option value="E170">E170</option>
+                <option value="B763">B763</option>
+                <option value="B772">B772</option>
+                <option value="B788">B788</option>
+                <option value="B752">B752</option>
+                <option value="A388">A388</option>
+                <option value="B744">B744</option>
+                <option value="CRJ9">CRJ9</option>
+                <option value="AT76">AT76</option>
+                <option value="B789">B789</option>
+                <option value="AT75">AT75</option>
+                <option value="B77L">B77L</option>
+                <option value="C172">C172</option>
+            </select>
+
+            <!-- Airline Dropdown for Airlines -->
             <select id="airline-select">
                 <option value="">Select an Airline...</option>
                 <option value="AAL">American Airlines</option>
@@ -248,7 +284,7 @@
         <button onclick="updateIFrame()">Search</button>
 
         <!-- Centered iFrame -->
-        <iframe id="radarbox-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width=650 height=500 src="https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showRegistration=true"></iframe>
+        <iframe id="radarbox-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="650" height="500" src="https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showRegistration=true"></iframe>
     </div>
 </body>
 </html>
