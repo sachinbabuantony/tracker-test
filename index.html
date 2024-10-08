@@ -133,7 +133,7 @@
             const modelSelect = document.getElementById('model-select');
             const airlineSelect = document.getElementById('airline-select');
 
-            // Initially hide the second input until a feature is selected
+            // Initially hide the inputs until a feature is selected
             searchInput.style.display = 'none';
             modelSelect.style.display = 'none';
             airlineSelect.style.display = 'none';
@@ -141,14 +141,14 @@
             featureSelect.addEventListener('change', function() {
                 const feature = this.value;
 
-                // Hide both inputs initially
+                // Hide all inputs initially
                 searchInput.style.display = 'none';
                 modelSelect.style.display = 'none';
                 airlineSelect.style.display = 'none';
 
-                if (feature === "serial") {
+                if (feature === "serial" || feature === "registration") {
                     searchInput.style.display = 'inline-block';
-                    searchInput.placeholder = "Enter serial...";
+                    searchInput.placeholder = feature === "serial" ? "Enter Serial..." : "Enter Registration...";
                 } else if (feature === "model") {
                     modelSelect.style.display = 'inline-block';
                 } else if (feature === "airline") {
@@ -160,14 +160,15 @@
         function updateIFrame() {
             const feature = document.getElementById('feature-select').value;
             const iframe = document.getElementById('radarbox-iframe');
-            let src = "https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showserial=true";
+            let src = "https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true";
 
-            if (feature === "serial") {
-                const serialValue = document.getElementById('search-input').value.trim();
-                if (serialValue) {
-                    src += `&serial=${encodeURIComponent(serialValue)}`;
+            if (feature === "serial" || feature === "registration") {
+                const searchValue = document.getElementById('search-input').value.trim();
+                if (searchValue) {
+                    const param = feature === "serial" ? "serial" : "registration";
+                    src += `&${param}=${encodeURIComponent(searchValue)}`;
                 } else {
-                    alert("Please enter a serial number.");
+                    alert(`Please enter a valid ${feature}.`);
                     return;
                 }
             } else if (feature === "model") {
@@ -206,12 +207,13 @@
             <!-- Master Selection Box with 'Search by' as default -->
             <select id="feature-select">
                 <option value="">Search by</option>
-                <option value="serial">serial</option>
+                <option value="serial">Serial</option>
+                <option value="registration">Registration</option>
                 <option value="model">Model</option>
                 <option value="airline">Airline</option>
             </select>
 
-            <!-- Text Input for serial -->
+            <!-- Text Input for Serial or Registration -->
             <input type="text" id="search-input" placeholder="Enter Value...">
 
             <!-- Model Dropdown for Aircraft Models -->
@@ -284,7 +286,7 @@
         <button onclick="updateIFrame()">Search</button>
 
         <!-- Centered iFrame -->
-        <iframe id="radarbox-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="650" height="500" src="https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showserial=true"></iframe>
+        <iframe id="radarbox-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="650" height="500" src="https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true"></iframe>
     </div>
 </body>
 </html>
