@@ -146,9 +146,9 @@
                 modelSelect.style.display = 'none';
                 airlineSelect.style.display = 'none';
 
-                if (feature === "Serial") {
+                if (feature === "serial") {
                     searchInput.style.display = 'inline-block';
-                    searchInput.placeholder = "Enter Serial...";
+                    searchInput.placeholder = "Enter serial...";
                 } else if (feature === "model") {
                     modelSelect.style.display = 'inline-block';
                 } else if (feature === "airline") {
@@ -160,14 +160,14 @@
         function updateIFrame() {
             const feature = document.getElementById('feature-select').value;
             const iframe = document.getElementById('radarbox-iframe');
-            let src = "https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showSerial=true";
+            let src = "https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showserial=true";
 
-            if (feature === "Serial") {
-                const SerialValue = document.getElementById('search-input').value.trim();
-                if (SerialValue) {
-                    src += `&Serial=${encodeURIComponent(SerialValue)}`;
+            if (feature === "serial") {
+                const serialValue = document.getElementById('search-input').value.trim();
+                if (serialValue) {
+                    src += `&serial=${encodeURIComponent(serialValue)}`;
                 } else {
-                    alert("Please enter a Serial number.");
+                    alert("Please enter a serial number.");
                     return;
                 }
             } else if (feature === "model") {
@@ -206,12 +206,12 @@
             <!-- Master Selection Box with 'Search by' as default -->
             <select id="feature-select">
                 <option value="">Search by</option>
-                <option value="Serial">Serial</option>
+                <option value="serial">serial</option>
                 <option value="model">Model</option>
                 <option value="airline">Airline</option>
             </select>
 
-            <!-- Text Input for Serial -->
+            <!-- Text Input for serial -->
             <input type="text" id="search-input" placeholder="Enter Value...">
 
             <!-- Model Dropdown for Aircraft Models -->
@@ -284,7 +284,7 @@
         <button onclick="updateIFrame()">Search</button>
 
         <!-- Centered iFrame -->
-        <iframe id="radarbox-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="650" height="500" src="https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showSerial=true"></iframe>
+        <iframe id="radarbox-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="650" height="500" src="https://www.radarbox.com/?widget=1&z=5&lat=51.59971&lng=-6.24753&airportCardRight=true&showLabels=true&showAirlineLogo=true&showFn=true&showRoute=true&showAircraftModel=true&showserial=true"></iframe>
     </div>
 </body>
 </html>
